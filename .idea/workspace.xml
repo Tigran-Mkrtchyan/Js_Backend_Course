@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70ceddeb-fd44-4cfb-a501-3516eeb1dade" name="Default Changelist" comment="" />
+    <list default="true" id="70ceddeb-fd44-4cfb-a501-3516eeb1dade" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lesson1/linkedList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1nVClbtzwrSeiIeAQWE7y5iVbsJ" />
   <component name="ProjectViewState">
@@ -15,7 +21,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lesson1/index.js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lesson1/linkedList/index.js" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -23,7 +29,7 @@
     <configuration default="true" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/lesson1/index.js">
       <method v="2" />
     </configuration>
-    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="lesson1/index.js" working-dir="$PROJECT_DIR$">
+    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="lesson1/linkedList/index.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
   </component>
@@ -36,7 +42,8 @@
       <option name="presentableId" value="Default" />
       <updated>1611466023361</updated>
       <workItem from="1611466024710" duration="3404000" />
-      <workItem from="1611601650554" duration="1710000" />
+      <workItem from="1611601650554" duration="2428000" />
+      <workItem from="1611669525560" duration="685000" />
     </task>
     <servers />
   </component>
@@ -44,29 +51,29 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="254" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611466150299">
+    <state x="254" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611670214840">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="254" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1611466150299" />
-    <state x="580" y="184" key="FileChooserDialogImpl" timestamp="1611466103890">
+    <state x="254" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.860@0.0.1600.860" timestamp="1611670214840" />
+    <state x="580" y="184" key="FileChooserDialogImpl" timestamp="1611670212752">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="580" y="184" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1611466103890" />
-    <state width="1579" height="377" key="GridCell.Tab.0.bottom" timestamp="1611602973878">
+    <state x="580" y="184" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1611670212752" />
+    <state width="1579" height="154" key="GridCell.Tab.0.bottom" timestamp="1611604093425">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="377" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1611602973878" />
-    <state width="1579" height="377" key="GridCell.Tab.0.center" timestamp="1611602973878">
+    <state width="1579" height="154" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1611604093425" />
+    <state width="1579" height="154" key="GridCell.Tab.0.center" timestamp="1611604093425">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="377" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1611602973878" />
-    <state width="1579" height="377" key="GridCell.Tab.0.left" timestamp="1611602973878">
+    <state width="1579" height="154" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1611604093425" />
+    <state width="1579" height="154" key="GridCell.Tab.0.left" timestamp="1611604093409">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="377" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1611602973878" />
-    <state width="1579" height="377" key="GridCell.Tab.0.right" timestamp="1611602973878">
+    <state width="1579" height="154" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1611604093409" />
+    <state width="1579" height="154" key="GridCell.Tab.0.right" timestamp="1611604093425">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="377" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1611602973878" />
+    <state width="1579" height="154" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1611604093425" />
   </component>
 </project>
