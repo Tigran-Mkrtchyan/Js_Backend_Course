@@ -7,6 +7,7 @@ function createNode(data) {
 
 function createLinkedList() {
     let first = null, tail = null;
+    
     return {
         getHead: ()=>{
             return first;
