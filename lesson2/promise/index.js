@@ -3,6 +3,10 @@ createPromise((res, rej) => {
 })
     .than((val) => {
         console.log(val)
+        return createPromise(res => res(val + 5));
+    }, err => console.log(err))
+    .than((val) => {
+        console.log(val)
     }, err => console.log(err))
 
 
@@ -27,11 +31,11 @@ function createPromise(executor) {
     function doResolve(fn, res, rej) {
         let done = false;
         try {
-            fn( (value)=> {
+            fn((value) => {
                 if (done) return
                 done = true
                 res(value)
-            },  (reason) =>{
+            }, (reason) => {
                 if (done) return
                 done = true
                 rej(reason)
@@ -44,6 +48,19 @@ function createPromise(executor) {
 
     }
 
+    function resolve(value) {
+        return createPromise((res) => {
+            res(value);
+        })
+    }
+
+    function getValue(value) {
+        if (typeof value.than === 'function') {
+            value.than(result => value = result);
+        }
+        return value;
+    }
+
     doResolve(executor, res, rej);
     return {
         than: (onFulfilled, onReject) => {
@@ -51,12 +68,13 @@ function createPromise(executor) {
                 if (!isFunction(onFulfilled)) {
                     return;
                 }
-                return onFulfilled(value);
+                value = getValue(value)
+                return resolve(onFulfilled(value));
             } else {
                 if (!isFunction(onReject)) {
                     return;
                 }
-                return onReject(value);
+                return resolve(onReject(value));
             }
         }
     };
