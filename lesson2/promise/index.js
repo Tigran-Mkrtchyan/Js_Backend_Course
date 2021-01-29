@@ -1,15 +1,26 @@
 createPromise((res, rej) => {
     res(8)
 })
-    .than((val) => {
+    .then((val) => {
         console.log(val)
         return createPromise(res => res(val + 5));
     }, err => console.log(err))
-    .than((val) => {
+    .then((val) => {
         console.log(val)
     }, err => console.log(err))
 
+let iter = [
+    createPromise((res) => setTimeout(() => res(7), 0)),
+    createPromise((res, rej) => setTimeout(() => rej("err"), 0)),
+    createPromise((res) => setTimeout(() => res(30), 0)),
+];
 
+Promise.all(iter).then((result) => {
+        result.forEach(current => console.log(current));
+    },
+    (err) => {
+        console.log(err);
+    });
 function createPromise(executor) {
     if (!isFunction(executor)) {
         throw new Error("Promise executor undefined is not a function");
@@ -17,6 +28,7 @@ function createPromise(executor) {
 
     let state = "pending";
     let value = null;
+    let arr = [];
 
     function res(val) {
         state = "fulfilled";
@@ -32,13 +44,13 @@ function createPromise(executor) {
         let done = false;
         try {
             fn((value) => {
-                if (done) return
-                done = true
-                res(value)
+                if (done) return;
+                done = true;
+                res(value);
             }, (reason) => {
-                if (done) return
-                done = true
-                rej(reason)
+                if (done) return;
+                done = true;
+                rej(reason);
             });
         } catch (ex) {
             if (done) return
@@ -55,26 +67,49 @@ function createPromise(executor) {
     }
 
     function getValue(value) {
-        if (typeof value.than === 'function') {
-            value.than(result => value = result);
+        if (typeof value.then === 'function') {
+            value.then(result => value = result);
         }
         return value;
     }
 
     doResolve(executor, res, rej);
-    return {
-        than: (onFulfilled, onReject) => {
-            if (state === "fulfilled") {
-                if (!isFunction(onFulfilled)) {
-                    return;
+    function check(){
+        if (state === "pending") {
+            setTimeout(check,0);
+        }else if(state === "fulfilled"){
+            let onFulfilled = arr[0];
+            if (!isFunction(onFulfilled)) {
+                return;
+            }
+            value = getValue(value)
+            return resolve(onFulfilled(value));
+        }else{
+            let onReject = arr[1];
+            if (!isFunction(onReject)) {
+                return;
+            }
+            return resolve(onReject(value));
+        }
+    }
+    return  {
+        then: (onFulfilled, onReject) => {
+            if (state === "pending") {
+                arr.push(onFulfilled,onReject)
+               setTimeout(check,0);
+            }else {
+                if (state === "fulfilled") {
+                    if (!isFunction(onFulfilled)) {
+                        return;
+                    }
+                    value = getValue(value)
+                    return resolve(onFulfilled(value));
+                } else {
+                    if (!isFunction(onReject)) {
+                        return;
+                    }
+                    return resolve(onReject(value));
                 }
-                value = getValue(value)
-                return resolve(onFulfilled(value));
-            } else {
-                if (!isFunction(onReject)) {
-                    return;
-                }
-                return resolve(onReject(value));
             }
         }
     };
@@ -83,3 +118,37 @@ function createPromise(executor) {
 function isFunction(x) {
     return x instanceof Function;
 }
+
+createPromise.resolve = (value) => {
+    return createPromise(res => {
+        res(value);
+    })
+}
+createPromise.reject = (value) => {
+    return createPromise((res, rej) => {
+        rej(value);
+    })
+}
+
+createPromise.all = (iter) => {
+    let isRejected = false;
+    let completed = 0;
+    let result = [];
+    return createPromise((res, rej) => {
+        iter.forEach((current, index) => {
+            createPromise.resolve(current)
+                .then(val => {
+                    result[index] = val;
+                    completed++;
+                    if (completed === iter.length) {
+                        res(result);
+                    }
+                }, err => {
+                    if (!isRejected) {
+                        rej(err)
+                    }
+                });
+        })
+    })
+}
+
