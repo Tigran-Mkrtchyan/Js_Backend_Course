@@ -1,26 +1,28 @@
 createPromise((res, rej) => {
-    res(8)
+    rej(8)
 })
     .then((val) => {
         console.log(val)
         return createPromise(res => res(val + 5));
-    }, err => console.log(err))
+    }, err => {
+        console.log(err)
+        return createPromise(res => res(err + 5));})
     .then((val) => {
         console.log(val)
     }, err => console.log(err))
 
-let iter = [
-    createPromise((res) => setTimeout(() => res(7), 0)),
-    createPromise((res, rej) => setTimeout(() => rej("err"), 0)),
-    createPromise((res) => setTimeout(() => res(30), 0)),
-];
+// let iter = [
+//     createPromise((res) => setTimeout(() => res(7), 0)),
+//     createPromise((res, rej) => setTimeout(() => rej("err"), 0)),
+//     createPromise((res) => setTimeout(() => res(30), 0)),
+// ];
 
-Promise.all(iter).then((result) => {
-        result.forEach(current => console.log(current));
-    },
-    (err) => {
-        console.log(err);
-    });
+// Promise.all(iter).then((result) => {
+//         result.forEach(current => console.log(current));
+//     },
+//     (err) => {
+//         console.log(err);
+//     });
 function createPromise(executor) {
     if (!isFunction(executor)) {
         throw new Error("Promise executor undefined is not a function");
@@ -94,22 +96,11 @@ function createPromise(executor) {
     }
     return  {
         then: (onFulfilled, onReject) => {
+            arr.push(onFulfilled,onReject)
             if (state === "pending") {
-                arr.push(onFulfilled,onReject)
                setTimeout(check,0);
             }else {
-                if (state === "fulfilled") {
-                    if (!isFunction(onFulfilled)) {
-                        return;
-                    }
-                    value = getValue(value)
-                    return resolve(onFulfilled(value));
-                } else {
-                    if (!isFunction(onReject)) {
-                        return;
-                    }
-                    return resolve(onReject(value));
-                }
+                return check();
             }
         }
     };
@@ -121,12 +112,12 @@ function isFunction(x) {
 
 createPromise.resolve = (value) => {
     return createPromise(res => {
-        res(value);
-    })
+        setTimeout(()=>res(value),0);
+    });
 }
 createPromise.reject = (value) => {
     return createPromise((res, rej) => {
-        rej(value);
+        setTimeout(()=>rej(value),0);
     })
 }
 
@@ -151,4 +142,3 @@ createPromise.all = (iter) => {
         })
     })
 }
-
